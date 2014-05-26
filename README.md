@@ -21,5 +21,12 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
             [UmbracoRequred("TitleRequiredError")]
             public string Title { get; set; }
             
+            //Getting regular expression from dictionary
+            [UmbracoRegEx("RegExPhoneFormat", "PhoneFormatError")]
+            public string PhoneNumber { get; set; }
+            
         }
     }
+    
+    
+##Additional attributes
