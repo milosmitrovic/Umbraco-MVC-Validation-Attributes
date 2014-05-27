@@ -37,7 +37,7 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
 ##Additional attributes
 
 
-###Conditional required
+###Conditional Required
 
             //Conditional required if "Text2" property is not null, empty or white space
             [UmbracoConditionlRequired("Text2", "Text1ConditionalRequiredErrorKey")]
@@ -46,7 +46,7 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
             public string Text2 { get; set; } 
 
 
-###Date validation attribute
+###Date Validation Attribute
 
             //Optional date field validator
             [UmbracoDateValidator("DateFormatErrorKey")]
@@ -86,3 +86,12 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
     public string ToDate { get; set; }
     
     
+###Date Comparison Types
+
+Available values of DateComparisonType enum:
+
+        DateComparisonType.Equal;
+        DateComparisonType.GreaterThan
+        DateComparisonType.GreaterThanOrEqual
+        DateComparisonType.LowerThan
+        DateComparisonType.LowerThanOrEqual
