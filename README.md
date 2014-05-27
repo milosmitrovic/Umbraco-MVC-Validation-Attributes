@@ -35,3 +35,44 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
     
     
 ##Additional attributes
+
+
+###Conditional required
+
+            //Conditional required if "Text2" property is not null, empty or white space
+            [UmbracoConditionlRequired("Text2", "Text1ConditionalRequiredErrorKey")]
+            public string Text1 { get; set; }
+            
+            public string Text2 { get; set; } 
+
+
+###Date validation attribute
+
+            //Optional date field validator
+            [UmbracoDateValidator("DateFormatErrorKey")]
+            public string Birthday { get; set; }
+            
+            //Date validation with forced date format
+            [UmbracoDateValidator("dd-MM-yyyy", "DateFormatErrorKey")]
+            public string Birthday { get; set; }
+            
+            //Required date field with forced date format
+            [UmbracoDateValidator("dd-MM-yyyy", required: true, "DateFormatErrorKey")]
+            public string Birthday { get; set; }
+            
+
+###DateTimeNow Comparison Attribute
+
+    //Compare date field with current datetime
+    [UmbracoDateTimeNowComparison(DateComparisonType.LowerThan, ErrorMessage = "Date of birth must be lower than current date")]
+    public string Birthday { get; set; }
+    
+    //Compare date field only with current date
+    [UmbracoDateTimeNowComparison(DateComparisonType.Equal, onlyDate: true, ErrorMessage = "Date of birth must be equal to current date")]
+    public string Birthday { get; set; }
+
+    //Compare date field with current datetime and force date format
+    [UmbracoDateTimeNowComparison("dd-MM-yyyy", DateComparisonType.LowerThanOrEqual, ErrorMessage = "Date of birth must be lower than or equal to current date"))]
+    public string Birthday { get; set; }
+    
+    
