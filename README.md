@@ -1,7 +1,7 @@
 Umbraco MVC Validation Attributes
 =================================
 
-Umbraco MVC validation allows you to use umbraco dictionary items for error messages and regular expressions. Also there are some additional attibutes for date validation, date comparison and conditional requierd validation.
+Umbraco MVC validation allows you to use umbraco dictionary items for error messages and regular expressions. Also there are some additional attibutes for date validation, date comparison and conditional requierd validation. This assembly is available for umbraco 6.2.0 (.net 4.0) and umbraco 7.1.1 (.net 4.5).
 
 ##How to use
 
@@ -24,6 +24,11 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
             //Getting regular expression from dictionary
             [UmbracoRegEx("RegExPhoneFormat", "PhoneFormatError")]
             public string PhoneNumber { get; set; }
+            
+           //Email address error messages from umbraco dictionary
+           [UmbracoRequred("EmailRequiredError")]
+           [UmbracoEmail("EmailFormatError")]
+           public override string Email { get; set; }
             
         }
     }
