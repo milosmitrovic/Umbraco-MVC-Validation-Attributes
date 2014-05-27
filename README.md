@@ -79,10 +79,10 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
 ###Date Fields Compare Attribute
 
     //Comparison of two date fields
-    [DateFieldsCompareValidator("DateTo",DateComparisonType.GreaterThan, "FromDateMinDateErrorKey")]
+    [UmbracoDateFieldsCompare("DateTo",DateComparisonType.GreaterThan, "FromDateMinDateErrorKey")]
     public string FromDate { get; set; }
     
-    [DateFieldsCompareValidator("FromDate",DateComparisonType.LowerThanOrEqual, "ToDateMaxDateErrorKey")]
+    [UmbracoDateFieldsCompare("FromDate",DateComparisonType.LowerThanOrEqual, "ToDateMaxDateErrorKey")]
     public string ToDate { get; set; }
     
     
