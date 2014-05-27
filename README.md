@@ -64,15 +64,15 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
 ###DateTimeNow Comparison Attribute
 
     //Compare date field with current datetime
-    [UmbracoDateTimeNowComparison(DateComparisonType.LowerThan, ErrorMessage = "Date of birth must be lower than current date")]
+    [UmbracoDateTimeNowComparison(DateComparisonType.LowerThan, "BirthdayMaxErrorKey")]
     public string Birthday { get; set; }
     
     //Compare date field only with current date
-    [UmbracoDateTimeNowComparison(DateComparisonType.Equal, onlyDate: true, ErrorMessage = "Date of birth must be equal to current date")]
+    [UmbracoDateTimeNowComparison(DateComparisonType.Equal, onlyDate: true, "DateNotEqualErrorKey")]
     public string Birthday { get; set; }
 
     //Compare date field with current datetime and force date format
-    [UmbracoDateTimeNowComparison("dd-MM-yyyy", DateComparisonType.LowerThanOrEqual, ErrorMessage = "Date of birth must be lower than or equal to current date"))]
+    [UmbracoDateTimeNowComparison("dd-MM-yyyy", DateComparisonType.LowerThanOrEqual, "BirthdayMaxErrorKey"))]
     public string Birthday { get; set; }
     
     
