@@ -18,16 +18,16 @@ Umbraco MVC validation allows you to use umbraco dictionary items for error mess
         public class FormModel
         {
             //Getting error text from dictionary
-            [UmbracoRequred("TitleRequiredError")]
+            [UmbracoRequred("TitleRequiredErrorKey")]
             public string Title { get; set; }
             
             //Getting regular expression from dictionary
-            [UmbracoRegEx("RegExPhoneFormat", "PhoneFormatError")]
+            [UmbracoRegEx("RegExPhoneFormatKey", "PhoneFormatErrorKey")]
             public string PhoneNumber { get; set; }
             
            //Email address error messages from umbraco dictionary
-           [UmbracoRequred("EmailRequiredError")]
-           [UmbracoEmail("EmailFormatError")]
+           [UmbracoRequred("EmailRequiredErrorKey")]
+           [UmbracoEmail("EmailFormatErrorKey")]
            public override string Email { get; set; }
             
         }
