@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Umbraco mvc validation attributes by milosmitrovic</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Umbraco mvc validation attributes</h1>
+          <h2></h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/milosmitrovic/Umbraco-MVC-Validation-Attributes/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/milosmitrovic/Umbraco-MVC-Validation-Attributes/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/milosmitrovic/Umbraco-MVC-Validation-Attributes" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="umbraco-mvc-validation-attributes" class="anchor" href="#umbraco-mvc-validation-attributes"><span class="octicon octicon-link"></span></a>Umbraco MVC Validation Attributes</h1>
+
+<p>Umbraco MVC validation allows you to use umbraco dictionary items for error messages and regular expressions. Also there are some additional attibutes for date validation, date comparison and conditional requierd validation. This assembly is available for umbraco 6.2.0 (.net 4.0) and umbraco 7.1.1 (.net 4.5).</p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using mUtility.Umbraco.Validation;
+
+namespace WebApp.Models
+{
+    public class FormModel
+    {
+        //Getting error text from dictionary
+        [UmbracoRequred("TitleRequiredErrorKey")]
+        public string Title { get; set; }
+
+        //Getting regular expression from dictionary
+        [UmbracoRegEx("RegExPhoneFormatKey", "PhoneFormatErrorKey")]
+        public string PhoneNumber { get; set; }
+
+       //Email address error messages from umbraco dictionary
+       [UmbracoRequred("EmailRequiredErrorKey")]
+       [UmbracoEmail("EmailFormatErrorKey")]
+       public override string Email { get; set; }
+
+    }
+}
+</code></pre>
+
+<h2>
+<a name="additional-attributes" class="anchor" href="#additional-attributes"><span class="octicon octicon-link"></span></a>Additional attributes</h2>
+
+<h3>
+<a name="conditional-required" class="anchor" href="#conditional-required"><span class="octicon octicon-link"></span></a>Conditional Required</h3>
+
+<pre><code>        //Conditional required if "Text2" property is not null, empty or white space
+        [UmbracoConditionlRequired("Text2", "Text1ConditionalRequiredErrorKey")]
+        public string Text1 { get; set; }
+
+        public string Text2 { get; set; } 
+</code></pre>
+
+<h3>
+<a name="date-validation-attribute" class="anchor" href="#date-validation-attribute"><span class="octicon octicon-link"></span></a>Date Validation Attribute</h3>
+
+<pre><code>        //Optional date field validator
+        [UmbracoDateValidator("DateFormatErrorKey")]
+        public string Birthday { get; set; }
+
+        //Date validation with forced date format
+        [UmbracoDateValidator("dd-MM-yyyy", "DateFormatErrorKey")]
+        public string Birthday { get; set; }
+
+        //Required date field with forced date format
+        [UmbracoDateValidator("dd-MM-yyyy", required: true, "DateFormatErrorKey")]
+        public string Birthday { get; set; }
+</code></pre>
+
+<h3>
+<a name="datetimenow-comparison-attribute" class="anchor" href="#datetimenow-comparison-attribute"><span class="octicon octicon-link"></span></a>DateTimeNow Comparison Attribute</h3>
+
+<pre><code>//Compare date field with current datetime
+[UmbracoDateTimeNowComparison(DateComparisonType.LowerThan, "BirthdayMaxDateErrorKey")]
+public string Birthday { get; set; }
+
+//Compare date field only with current date
+[UmbracoDateTimeNowComparison(DateComparisonType.Equal, onlyDate: true, "DateNotEqualErrorKey")]
+public string Birthday { get; set; }
+
+//Compare date field with current datetime and force date format
+[UmbracoDateTimeNowComparison("dd-MM-yyyy", DateComparisonType.LowerThanOrEqual, "BirthdayMaxDateErrorKey"))]
+public string Birthday { get; set; }
+</code></pre>
+
+<h3>
+<a name="date-fields-compare-attribute" class="anchor" href="#date-fields-compare-attribute"><span class="octicon octicon-link"></span></a>Date Fields Compare Attribute</h3>
+
+<pre><code>//Comparison of two date fields
+[UmbracoDateFieldsCompare("DateTo",DateComparisonType.GreaterThan, "FromDateMinDateErrorKey")]
+public string FromDate { get; set; }
+
+[UmbracoDateFieldsCompare("FromDate",DateComparisonType.LowerThanOrEqual, "ToDateMaxDateErrorKey")]
+public string ToDate { get; set; }
+</code></pre>
+
+<h3>
+<a name="date-comparison-types" class="anchor" href="#date-comparison-types"><span class="octicon octicon-link"></span></a>Date Comparison Types</h3>
+
+<p>Available values of DateComparisonType enum:</p>
+
+<pre><code>    DateComparisonType.Equal;
+    DateComparisonType.GreaterThan
+    DateComparisonType.GreaterThanOrEqual
+    DateComparisonType.LowerThan
+    DateComparisonType.LowerThanOrEqual
+</code></pre>
+        </section>
+
+        <footer>
+          Umbraco mvc validation attributes is maintained by <a href="https://github.com/milosmitrovic">milosmitrovic</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
